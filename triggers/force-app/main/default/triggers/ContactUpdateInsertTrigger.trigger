@@ -28,10 +28,10 @@ trigger ContactUpdateInsertTrigger on Contact (before insert, before update) {
             else if (AcCon.get(c.AccountId) == 0) {
                 zeroli.add(Accmap.get(c.AccountId));
             }else if(AcCon.get(c.AccountId) > 1){
-                errorli.add(c.AccountId);
+                errorli.add(Accmap.get(c.AccountId));
                 //adderror                
             }
-        }
+    
 
         update accli;
 }
