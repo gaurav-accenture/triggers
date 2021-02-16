@@ -1,7 +1,7 @@
 trigger ContactUpdateInsertTrigger on Contact (before insert, before update) {
 
         List<Account> accli = new List<Account>();//to be updated
-        List<Account> zerolist = new List<Account>();//list of accounts with zero primary
+        List<Account> zeroli = new List<Account>();//list of accounts with zero primary
         List<Account> errorli = new List<Account>();//list of accounts with more than 1 primaries
 
         List<Id> ids = new List<Id>(); 
