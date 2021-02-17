@@ -31,7 +31,7 @@ trigger ContactUpdateInsertTrigger on Contact (before insert, before update) {
                 errorli.add(Accmap.get(c.AccountId));
                 //adderror                
             }
-    
+        }
 
         update accli;
 }
