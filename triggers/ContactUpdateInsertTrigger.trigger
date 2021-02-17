@@ -1,8 +1,8 @@
 trigger ContactUpdateInsertTrigger on Contact (before insert, before update) {
 
         List<Account> accli = new List<Account>();//to be updated
-        List<Account> zeroli = new List<Account>();//list of accounts with zero primary
-        List<Account> errorli = new List<Account>();//list of accounts with more than 1 primaries
+        // List<Account> zeroli = new List<Account>();//list of accounts with zero primary
+        // List<Account> errorli = new List<Account>();//list of accounts with more than 1 primaries
 
         List<Id> ids = new List<Id>(); 
         for(Contact c : trigger.new){
@@ -39,11 +39,11 @@ trigger ContactUpdateInsertTrigger on Contact (before insert, before update) {
                     if(c.phone != null)
                         a.phone = c.phone;
                     else 
-                        c.adderror('Phone number cannot be empty for primary contact.')
+                        c.adderror('Phone number cannot be empty for primary contact.');
                     accli.add(a);
                 } else if(AcCon.get(c.getAccountId) > 0){
-                    c.Is_Primary__c = false;
-                    c.adderror('Corresponding account already has a primary contact.')
+                    // c.Is_Primary__c = false;
+                    c.adderror('Corresponding account already has a primary contact.');
                     //adderror
                 }
             }
