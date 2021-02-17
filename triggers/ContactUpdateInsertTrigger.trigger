@@ -11,7 +11,7 @@ trigger ContactUpdateInsertTrigger on Contact (before insert, before update) {
         }
 
         Map<Id, Account> Accmap = new Map<Id, Account>([SELECT Id, phone, (SELECT Id FROM Contacts WHERE Is_Primary__c = true) FROM Account WHERE id IN :ids]);
-        System.debug(Accmap);
+        //System.debug(Accmap);
 
         Map<Id, Integer> AcCon = new Map<Id, Integer>();
         for(Id id : Accmap.keySet()){//id?
@@ -20,18 +20,36 @@ trigger ContactUpdateInsertTrigger on Contact (before insert, before update) {
 
         Account a;
         for(Contact c : trigger.new){
-            if(AcCon.get(c.AccountId) == 1){
-                a = Accmap.get(c.AccountId);
-                a.Phone = c.Phone;
-                accli.add(a);
-            }
-            else if (AcCon.get(c.AccountId) == 0) {
-                zeroli.add(Accmap.get(c.AccountId));
-            }else if(AcCon.get(c.AccountId) > 1){
-                errorli.add(Accmap.get(c.AccountId));
-                //adderror                
+            // if(AcCon.get(c.AccountId) == 1){//c
+            //     a = Accmap.get(c.AccountId);
+            //     a.Phone = c.Phone;
+            //     accli.add(a);
+            // }
+            // else if (AcCon.get(c.AccountId) == 0) {
+            //     zeroli.add(Accmap.get(c.AccountId));
+            //     //
+            // }else if(AcCon.get(c.AccountId) > 1){
+            //     // if
+            //     errorli.add(Accmap.get(c.AccountId));
+            //     //adderror                
+            // }
+            if(c.Is_Primary__c == true){
+                if(AcCon.get(c.AccountId) == 0){
+                    a = Accmap.get(c.AccountId);
+                    if(c.phone != null)
+                        a.phone = c.phone;
+                    else 
+                        c.adderror('Phone number cannot be empty for primary contact.')
+                    accli.add(a);
+                } else if(AcCon.get(c.getAccountId) > 0){
+                    c.Is_Primary__c = false;
+                    c.adderror('Corresponding account already has a primary contact.')
+                    //adderror
+                }
             }
         }
 
-        update accli;
+        if(!accli.isEmpty())
+            update accli;
+
 }
