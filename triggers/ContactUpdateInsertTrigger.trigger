@@ -41,7 +41,7 @@ trigger ContactUpdateInsertTrigger on Contact (before insert, before update) {
                     else 
                         c.adderror('Phone number cannot be empty for primary contact.');
                     accli.add(a);
-                } else if(AcCon.get(c.getAccountId) > 0){
+                } else if(AcCon.get(c.AccountId) > 0){
                     // c.Is_Primary__c = false;
                     c.adderror('Corresponding account already has a primary contact.');
                     //adderror
