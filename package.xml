@@ -4,5 +4,9 @@
         <members>ContactUpdateInsertTrigger</members>
         <name>ApexTrigger</name>
     </types>
+    <types>
+        <members>Contact.Is_Primary__c</members>
+        <name>CustomField</name>
+    </types>
     <version>50.0</version>
 </Package>
